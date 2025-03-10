@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Forecasting Manual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Source Sans Pro', sans-serif;
+            background: black;
+            position: relative;
+            color: white;
+        }
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('BACK.jpg') no-repeat center center/cover;
+            z-index: -2;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            background: black;
+            height: 0.6in;
+        }
+        .header img {
+            height: 60px;
+            margin: 0 10px;
+        }
+        .back-home {
+            background: purple;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+        }
+        .title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            margin-top: 80px;
+        }
+        .content {
+            text-align: center;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            color: black;
+            border-radius: 10px;
+        }
+        .view-details {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 24px;
+            background: purple;
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .details-section {
+            display: none;
+            text-align: left;
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            color: black;
+            border-radius: 12px;
+        }
+        .details-section h2 {
+            border-bottom: 2px solid #a347a3;
+            padding-bottom: 5px;
+        }
+        .details-section img {
+            display: block;
+            width: 100%;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="overlay"></div>
+    <div class="header">
+        <img src="GSC(2).png" alt="GSCI Logo">
+        <img src="KREN.png" alt="KREN Logo">
+        <a href="MockGS.html" class="back-home">Back to Home</a>
+    </div>
+    <div class="title">Cookie Forecasting Manual</div>
+    <div class="content">
+        <p>Welcome to the Cookie Forecasting Manual</p>
+        <p>Click the button below to explore detailed sections</p>
+        <button class="view-details" onclick="showDetails()">View Details</button>
+    </div>
+    
+    <div class="details-section" id="details">
+        <h2>Business Problem</h2>
+        <p>Every year, thousands of Girl Scouts rely on cookie sales for fundraising. The current forecast method—based solely on the previous year’s numbers—explains only 70% of sales variability. This limitation often leads to missed revenue opportunities or excess stock. By leveraging advanced predictive models, we can bridge this gap and unlock new opportunities for growth, efficiency, and increased fundraising success.</p>
+
+        <h2>Key Benefits</h2>
+        <p>Optimized inventory management, enhanced marketing strategies, increased troop engagement, and data-driven decision making.</p>
+
+        <h2>Analytical Problem</h2>
+        <p><strong>Analytical Context:</strong> The context involves analyzing historical sales data and external factors to improve forecasting accuracy by troop and cookie type.</p>
+        <p><strong>Challenges:</strong> High variance in sales across troops and regions, impact from external factors like weather and local events, and ensuring model reliability for troop leaders.</p>
+        <p><strong>Solution Focus:</strong> Implementing machine learning models to enhance forecasting accuracy and optimize inventory management.</p>
+        <p><strong>Success Metrics:</strong> Success is measured by the reduction of the forecast error (RMSE) from 14 to 9 and increasing alignment between projected demand and final orders.</p>
+
+        <h2>Research Questions</h2>
+        <p>Can machine learning models effectively integrate historical sales data, troop participation rates to improve the accuracy of cookie sales forecasts beyond traditional methods?</p>
+        <p>How can insights from predictive models be used to optimize inventory management and marketing strategies for Girl Scout troops?</p>
+
+        <h2>Data Dictionary</h2>
+        <h3>Key Variables</h3>
+        <p>Date: Sales transaction date.<br>
+           Number of Cases Sold: Total boxes sold.<br>
+           Cookie Type: Different cookie varieties.<br>
+           Troop ID: Identifies the troop responsible for sales.<br>
+           Number of Girls: Number of girl scouts participating in sales.<br>
+           Period: Specific sales time window.</p>
+        <h3>Data Insights</h3>
+        <img src="ch5.png" alt="Data Results">
+        <img src="Ch1.png" alt="Data Chart">
+
+        <h2>Model Selection</h2>
+        <h3>Assumptions</h3>
+        <p>The model assumes past sales patterns remain relevant to future predictions. No major disruptions in supply chain.</p>
+        <h3>Limitations</h3>
+        <p>Model may struggle with troops that lack historical data or operate in volatile market conditions.</p>
+        <h3>Splitting</h3>
+        <p>Groups the dataset by troop_id and cookie_type. Explicitly splits data into training (periods 1–4) and testing (period 5).</p>
+        <h3>Base Model Approaches</h3>
+        <p>SIO Tool: Uses last year’s sales and troop participation to estimate.<br>
+           Running Mean: Averages past sales from 2021-2024 to predict 2025.<br>
+           Our best-performing model, Adaptive Ridge Regression, reduced RMSE to 9.06, improving accuracy substantially.</p>
+        <img src="Ch2.png" alt="Base Model Chart">
+        
+        <h3>Model Selection</h3>
+        <p>We tested 10 models, the R² chart illustrates their performance. Adaptive Ridge Regression (R² = 0.8711) was the most accurate.</p>
+        <img src="ch4.png" alt="Model Selection Chart">
+
+        <h2>Validation</h2>
+        <p>Confidence in Predictions: Predictions were validated using a ±2×RMSE heuristic, ensuring 95% of actual sales values fall within the predicted confidence interval.</p>
+
+        <h2>Final Model Results</h2>
+        <img src="metric.png" alt="Metrics">
+       
+
+        <h2>Model Life Cycle</h2>
+        <img src="ch6.png" alt="Model Life Cycle">
+
+    
+    </div>
+    
+    <script>
+        function showDetails() {
+            document.getElementById('details').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
